@@ -1,0 +1,51 @@
+import random
+
+celebrities = [
+    "Leonardo DiCaprio", "Jennifer Aniston", "Britney Spears", "Brad Pitt", "Angelina Jolie",
+    "Tom Cruise", "Madonna", "Justin Timberlake", "Cameron Diaz", "Will Smith",
+    "Beyoncé", "Eminem", "Jennifer Lopez", "Johnny Depp", "Halle Berry",
+    "Michael Jackson", "Julia Roberts", "George Clooney", "Christina Aguilera", "Matt Damon",
+    "Oprah Winfrey", "Usher", "Keanu Reeves", "Alicia Silverstone", "Ricky Martin",
+    "Kate Winslet", "Drew Barrymore", "Nicole Kidman", "Justin Bieber", "Gwen Stefani",
+    "Eddie Murphy", "Katy Perry", "Sandra Bullock", "Christina Applegate", "Lionel Messi",
+    "Rihanna", "Bruce Willis", "Gwyneth Paltrow", "Johnny Knoxville", "Pink",
+    "Jessica Alba", "Ashton Kutcher", "Celine Dion", "Mila Kunis", "Eva Mendes",
+    "Mariah Carey", "Hugh Grant", "Aishwarya Rai", "Adam Sandler", "Scarlett Johansson"
+]
+
+def hangman():
+    word = random.choice(celebrities).lower()
+    guesses = []
+    attempts = 6
+
+    while True:
+        display_word = [letter if letter in guesses else "_" if letter.isalpha() else " " for letter in word]
+        print(" ".join(display_word))
+
+        if "_" not in display_word:
+            print("Congratulations! You guessed the celebrity correctly!")
+            break
+
+        guess = input("Guess a letter: ").lower()
+
+        if len(guess) != 1 or not guess.isalpha():
+            print("Please enter a single letter.")
+            continue
+
+        if guess in guesses:
+            print("You already guessed that letter.")
+            continue
+
+        guesses.append(guess)
+
+        if guess in word:
+            print("Correct guess!")
+        else:
+            attempts -= 1
+            print(f"Wrong guess! Attempts remaining: {attempts}")
+            if attempts == 0:
+                print("Game over! You ran out of attempts.")
+                print(f"The celebrity was: {word}")
+                break
+
+hangman()
